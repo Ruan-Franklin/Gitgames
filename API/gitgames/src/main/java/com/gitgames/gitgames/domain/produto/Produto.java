@@ -21,6 +21,7 @@ public class Produto {
     private BigDecimal preco;
     private String plataforma;
     private Integer estoque;
+    private Boolean ativo;
 
     public Produto(RequestProduto requestProduto){
         this.nome = requestProduto.nome();
@@ -28,6 +29,7 @@ public class Produto {
         this.preco = requestProduto.preco();
         this.plataforma = requestProduto.plataforma();
         this.estoque = requestProduto.estoque();
+        this.ativo = true;
     }
 
 

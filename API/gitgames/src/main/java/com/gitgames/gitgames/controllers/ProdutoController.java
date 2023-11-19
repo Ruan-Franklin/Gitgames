@@ -44,6 +44,20 @@ public class ProdutoController {
             throw new Exception("Produto não encontrado");
         }
     }
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deletarProduto(@PathVariable Integer id){
+        Optional<Produto> produtoOptional = produtoRepository.findById(id);
+        if (produtoOptional.isPresent()) {
+            Produto produto = produtoOptional.get();
+            produto.setAtivo(false);
+            return  ResponseEntity.noContent().build();
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 
 
 
