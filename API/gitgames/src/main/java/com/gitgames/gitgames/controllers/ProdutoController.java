@@ -6,7 +6,10 @@ import com.gitgames.gitgames.repositories.ProdutoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/produtos")
@@ -23,8 +26,25 @@ public class ProdutoController {
         Produto novoProduto= new Produto(dado);
         produtoRepository.save(novoProduto);
         return ResponseEntity.ok().build();
-
     }
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizarProduto(@RequestBody @Valid RequestProduto dado) throws Exception {
+        Optional<Produto> produtoOptional = produtoRepository.findById(dado.id());
+        if(produtoOptional.isPresent()){
+            Produto produto = produtoOptional.get();
+            produto.setNome(dado.nome());
+            produto.setDescricao(dado.descricao());
+            produto.setPreco(dado.preco());
+            produto.setPlataforma(dado.plataforma());
+            produto.setEstoque(dado.estoque());
+            return ResponseEntity.ok(produto);
+        }
+        else{
+            throw new Exception("Produto não encontrado");
+        }
+    }
+
 
 
     
