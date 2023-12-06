@@ -32,5 +32,14 @@ public class Produto {
         this.ativo = true;
     }
 
+    public Produto(RequestProdutoPost requestProdutoPost){
+        this.nome = requestProdutoPost.nome();
+        this.descricao = requestProdutoPost.descricao();
+        this.preco = requestProdutoPost.preco();
+        this.plataforma = requestProdutoPost.plataforma();
+        this.estoque = requestProdutoPost.estoque();
+        this.ativo = true;
+    }
+
 
 }
